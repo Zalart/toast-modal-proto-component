@@ -1,31 +1,35 @@
-import { Modal } from "./modal.js";
-import { Toast } from "./toast.js";
+/* import { Modal } from "./modal.js";
+import { Toast } from "./toast.js"; */
 
-var modalContainer = document.getElementById("modal");
-var toastContainer = document.getElementById("toast");
-export function Popup() {
-  this.isOverlay = true;
-  this.container = null;
-}
-Popup.prototype.show = function (obj) {
-  if (obj instanceof Modal) {
+// пришлось убрать циклические ссылки при переходе на классы
+
+const modalContainer = document.getElementById("modal");
+const toastContainer = document.getElementById("toast");
+export default class Popup {
+  constructor() {
     this.isOverlay = true;
-    this.container = modalContainer;
+    this.container = null;
   }
-  if (obj instanceof Toast) {
-    this.isOverlay = false;
-    this.container = toastContainer;
-  }
-};
-Popup.prototype.hide = function (obj) {
-  if (obj instanceof Modal) {
-    if (this.isOverlay) {
-      overlay.remove();
-      this.isOverlay = false;
+  show(obj) {
+    if (obj === "modal") {
+      this.isOverlay = true;
+      this.container = modalContainer;
     }
-    this.container = modalContainer;
+    if (obj === "toast") {
+      this.isOverlay = false;
+      this.container = toastContainer;
+    }
   }
-  if (obj instanceof Toast) {
-    this.container = toastContainer;
+  hide(obj) {
+    if (obj === "modal") {
+      if (this.isOverlay) {
+        overlay.remove();
+        this.isOverlay = false;
+      }
+      this.container = modalContainer;
+    }
+    if (obj === "toast") {
+      this.container = toastContainer;
+    }
   }
-};
+}
