@@ -2,7 +2,7 @@ import { Toast } from "./toast.js";
 
 export function ToastSuccess() {
   Toast.call(this);
-  this.type = null;
+  this.type = "success";
 }
 ToastSuccess.prototype = Object.create(Toast.prototype);
 ToastSuccess.prototype.constructor = ToastSuccess;
@@ -12,5 +12,5 @@ ToastSuccess.prototype.show = function (message) {
 };
 
 ToastSuccess.prototype.getType = function () {
-  this.type = "success";
+  return this.type;
 };

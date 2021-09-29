@@ -2,7 +2,7 @@ import { Toast } from "./toast.js";
 
 export function ToastNotification() {
   Toast.call(this);
-  this.type = null;
+  this.type = "notification";
 }
 ToastNotification.prototype = Object.create(Toast.prototype);
 ToastNotification.prototype.constructor = ToastNotification;
@@ -12,5 +12,5 @@ ToastNotification.prototype.show = function (message) {
 };
 
 ToastNotification.prototype.getType = function () {
-  this.type = "notification";
+  return this.type;
 };

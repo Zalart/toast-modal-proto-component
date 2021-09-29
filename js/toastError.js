@@ -2,15 +2,15 @@ import { Toast } from "./toast.js";
 
 export function ToastError() {
   Toast.call(this);
-  this.type = null;
+  this.type = "error";
 }
 ToastError.prototype = Object.create(Toast.prototype);
 ToastError.prototype.constructor = ToastError;
 
-ToastError.prototype.show = function (message) {
-  Toast.prototype.show.call(this, message);
+ToastError.prototype.show = function (header) {
+  Toast.prototype.show.call(this, header);
 };
 
 ToastError.prototype.getType = function () {
-  this.type = "error";
+  return this.type;
 };
