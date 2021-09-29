@@ -3,7 +3,6 @@ import { Popup } from "./popup.js";
 var modalContainer = document.getElementById("modal");
 
 export function Modal() {
-  Popup.call(this);
   this.header = null;
   this.content = null;
   this.isOverlay = null;
@@ -28,9 +27,7 @@ Modal.prototype.show = function (header, content) {
 };
 
 Modal.prototype.getContainer = function () {
-  Popup.prototype.getContainer.call(this);
   this.container = modalContainer;
-  console.log(this.container);
 };
 
 Modal.prototype.createModal = function (header, content) {

@@ -169,32 +169,32 @@ button:active {
 .hide .delete_toast {
   right: 0;
 }
-.type_1 {
+.error {
   background-color: salmon;
   border: tomato 2px solid;
 }
-.type_1::before {
+.error::before {
   background-image: url(i/fire.svg);
 }
-.type_2 {
+.notification {
   background-color: khaki;
   border: sandybrown 2px solid;
 }
-.type_2::before {
+.notification::before {
   background-image: url(i/exclamation-mark.svg);
 }
-.type_3 {
+.success {
   background-color: #2ecc71;
   border: #27ae60 2px solid;
 }
-.type_3::before {
+.success::before {
   background-image: url(i/approve.svg);
 }
-.type_4 {
+.message {
   background-color: deepskyblue;
   border: teal 2px solid;
 }
-.type_4::before {
+.message::before {
   background-image: url(i/loading.svg);
 }
 .delete_toast {

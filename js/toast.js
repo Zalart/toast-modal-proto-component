@@ -4,33 +4,34 @@ var toastContainer = document.getElementById("toast");
 
 export function Toast() {
   Popup.call(this);
-  this.message = null;
-  this.type = null;
   this.toastId = 0;
+  this.message = null;
 }
 
 Toast.prototype = Object.create(Popup.prototype);
 Toast.prototype.constructor = Toast;
 
-Toast.prototype.show = function (message, type) {
+Toast.prototype.show = function (message) {
   Popup.prototype.show.call(this);
-  this.message = message;
-  this.type = type;
-  this.createToast(this.message, this.type);
+  this.getType();
+  this.createToast(message, this.type);
+};
+
+Toast.prototype.getType = function () {
+  return null;
 };
 
 Toast.prototype.getContainer = function () {
   Popup.prototype.getContainer.call(this);
-  this.isOverlay = false;
   this.container = toastContainer;
-  console.log(this.container);
 };
 
-Toast.prototype.createToast = function () {
+Toast.prototype.createToast = function (message, type) {
+  this.message = message;
   var id = this.toastId++;
   var newNode = document.createElement("div");
-  newNode.id = "toast_id_" + id;
-  newNode.classList.add("toast", "type_" + this.type);
+  newNode.id = "toast_" + type + "_" + id;
+  newNode.classList.add("toast", type);
   this.container.append(newNode);
   newNode.append(this.message);
   var toastButton = document.createElement("span");
@@ -39,12 +40,12 @@ Toast.prototype.createToast = function () {
   toastButton.addEventListener("click", function (e) {
     Toast.prototype.removeToast.call(
       this,
-      document.getElementById("toast_id_" + e.target.id)
+      document.getElementById("toast_" + type + "_" + id)
     );
   });
   newNode.append(toastButton);
   setTimeout(function () {
-    var idToDelete = document.getElementById("toast_id_" + id);
+    var idToDelete = document.getElementById("toast_" + type + "_" + id);
     if (idToDelete) {
       Toast.prototype.removeToast(idToDelete);
     }
