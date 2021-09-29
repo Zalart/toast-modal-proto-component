@@ -11,14 +11,15 @@ textarea {
   width: 100%;
   line-height: 2rem;
   margin: 1rem;
-  padding: 1rem;
-  font-size: 1.4rem;
+  padding: 0.5rem;
+  font-size: 1.2rem;
 }
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  margin: 0 1rem;
 }
 .playground {
   display: flex;
@@ -45,7 +46,7 @@ textarea {
   left: 50%;
   opacity: 0;
   width: 50%;
-  padding: 2rem;
+  padding: 2rem 0;
   z-index: -1;
   transition: 500ms opacity ease;
   transform: translate(-50%, -50%);
@@ -55,14 +56,19 @@ textarea {
   flex-direction: column;
   justify-content: center;
 }
+
+h1,
 h2.modal_header {
   text-align: center;
 }
 .modal_content {
   width: 90%;
-  margin: 1rem;
-  padding: 1.2rem;
+  margin: 0;
+  margin: 1rem 0;
+  padding: 1.2rem 0;
+  padding: 0;
   overflow-wrap: anywhere;
+  text-align: center;
 }
 #modal.open {
   opacity: 1;
@@ -72,13 +78,14 @@ h2.modal_header {
 .buttons_container {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   align-items: center;
   width: 100%;
 }
 button {
   font-size: 17px;
   display: block;
-  margin: auto;
+  margin: 0.5rem auto;
   padding: 10px 30px;
   cursor: pointer;
   color: whitesmoke;
@@ -89,9 +96,14 @@ button {
   box-shadow: 0 5px 1px #27ae60;
   opacity: 0.8;
   z-index: 100;
+  width: auto;
+  position: relative;
 }
 button:hover {
   opacity: 1;
+}
+button:active {
+  box-shadow: none;
 }
 
 #toast {
@@ -107,7 +119,41 @@ button:hover {
   padding: 0.4rem 2rem 0.4rem 2.9rem;
   background-color: #fff;
   bottom: 20px;
+  opacity: 0;
+  animation: show 1s 1;
+  animation-fill-mode: forwards;
 }
+.hide {
+  opacity: 1;
+  animation: hide 1s 1;
+  animation-fill-mode: forwards;
+}
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  1% {
+    opacity: 0.99;
+    transform: translateY(-1px);
+  }
+  99% {
+    opacity: 0.01;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .toast::before {
   content: "";
   position: absolute;
@@ -116,6 +162,12 @@ button:hover {
   height: 45px;
   left: 6px;
   opacity: 0.7;
+}
+.hide::before {
+  left: -6px;
+}
+.hide .delete_toast {
+  right: 0;
 }
 .type_1 {
   background-color: salmon;
@@ -160,4 +212,17 @@ button:hover {
   opacity: 1;
   cursor: pointer;
   transform: rotate(10deg);
+}
+
+@media only screen and (max-width: 460px) {
+  #modal {
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
+  button {
+    font-size: 14px;
+    padding: 6px 18px;
+  }
 }

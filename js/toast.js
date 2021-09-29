@@ -1,5 +1,7 @@
 import { Popup } from "./popup.js";
 
+var toastContainer = document.getElementById("toast");
+
 export function Toast() {
   Popup.call(this);
   this.message = null;
@@ -11,10 +13,17 @@ Toast.prototype = Object.create(Popup.prototype);
 Toast.prototype.constructor = Toast;
 
 Toast.prototype.show = function (message, type) {
-  Popup.prototype.show.call(this, this);
+  Popup.prototype.show.call(this);
   this.message = message;
   this.type = type;
   this.createToast(this.message, this.type);
+};
+
+Toast.prototype.getContainer = function () {
+  Popup.prototype.getContainer.call(this);
+  this.isOverlay = false;
+  this.container = toastContainer;
+  console.log(this.container);
 };
 
 Toast.prototype.createToast = function () {
@@ -28,18 +37,23 @@ Toast.prototype.createToast = function () {
   toastButton.className = "delete_toast";
   toastButton.id = id;
   toastButton.addEventListener("click", function (e) {
-    Toast.prototype.removeToast.call(this, e.target.id);
+    Toast.prototype.removeToast.call(
+      this,
+      document.getElementById("toast_id_" + e.target.id)
+    );
   });
   newNode.append(toastButton);
   setTimeout(function () {
     var idToDelete = document.getElementById("toast_id_" + id);
     if (idToDelete) {
-      idToDelete.remove();
+      Toast.prototype.removeToast(idToDelete);
     }
   }, 5000);
 };
 
-Toast.prototype.removeToast = function (id) {
-  var nodeTodelete = document.getElementById("toast_id_" + id);
-  nodeTodelete.remove();
+Toast.prototype.removeToast = function (idToDelete) {
+  idToDelete.classList.add("hide");
+  setTimeout(function () {
+    idToDelete.remove();
+  }, 1000);
 };

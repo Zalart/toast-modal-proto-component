@@ -22,4 +22,4 @@ import { Toast } from "./toast.js";
 
     modal.show(inputHeader, inputContent);
   });
-})(Popup, Modal, Toast);
+})(Modal, Toast);

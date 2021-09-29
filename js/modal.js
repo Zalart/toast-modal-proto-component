@@ -1,28 +1,36 @@
 import { Popup } from "./popup.js";
 
+var modalContainer = document.getElementById("modal");
+
 export function Modal() {
+  Popup.call(this);
   this.header = null;
   this.content = null;
-  Popup.call(this);
+  this.isOverlay = null;
 }
 
 Modal.prototype = Object.create(Popup.prototype);
 Modal.prototype.constructor = Modal;
 
 Modal.prototype.show = function (header, content) {
-  Popup.prototype.show.call(this, this);
+  Popup.prototype.show.call(this);
   this.header = header;
   this.content = content;
+  this.isOverlay = true;
   this.createModal(this.header, this.content);
-  if (this.isOverlay) {
-    var overlay = document.createElement("div");
-    overlay.id = "overlay";
-    this.container.before(overlay);
-    overlay.addEventListener("click", () => {
-      Modal.prototype.hide.call(this);
-      overlay.remove();
-    });
-  }
+  var overlay = document.createElement("div");
+  overlay.id = "overlay";
+  this.container.before(overlay);
+  overlay.addEventListener("click", function () {
+    Modal.prototype.hide();
+    overlay.remove();
+  });
+};
+
+Modal.prototype.getContainer = function () {
+  Popup.prototype.getContainer.call(this);
+  this.container = modalContainer;
+  console.log(this.container);
 };
 
 Modal.prototype.createModal = function (header, content) {
@@ -39,12 +47,14 @@ Modal.prototype.createModal = function (header, content) {
   closeButton.id = "close_modal";
   closeButton.innerText = "close";
   this.container.append(closeButton);
-  closeButton.addEventListener("click", () => {
-    Modal.prototype.hide.call(this);
+  closeButton.addEventListener("click", function () {
+    Modal.prototype.hide();
+    overlay.remove();
   });
 };
 Modal.prototype.hide = function () {
-  Popup.prototype.hide.call(this, this);
+  Popup.prototype.hide.call(this);
+  this.isOverlay = false;
   Modal.prototype.destroyModal.call(this);
 };
 Modal.prototype.destroyModal = function () {
