@@ -4,6 +4,7 @@ var modalContainer = document.getElementById("modal");
 
 export function Modal() {
   Popup.call.this;
+  this.isOverlay = null;
 }
 
 Modal.prototype = Object.create(Popup.prototype);
@@ -11,6 +12,15 @@ Modal.prototype.constructor = Modal;
 
 Modal.prototype.show = function (header, content) {
   Popup.prototype.show.call(this, header, content);
+
+  var overlay = document.createElement("div");
+  overlay.id = "overlay";
+  this.container.before(overlay);
+  overlay.addEventListener("click", () => {
+    this.hide.call(this);
+    overlay.remove();
+  });
+
   this.createModal(this.header, this.content);
 };
 
