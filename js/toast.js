@@ -11,8 +11,8 @@ Toast.prototype = Object.create(Popup.prototype);
 Toast.prototype.constructor = Toast;
 
 Toast.prototype.show = function (header) {
+  this.container = toastContainer;
   Popup.prototype.show.call(this, header);
-  this.createToast(header, this.type);
   var idToDelete = document.getElementById(
     "toast_" + this.type + "_" + this.toastId
   );
@@ -24,8 +24,7 @@ Toast.prototype.show = function (header) {
 };
 
 Toast.prototype.createContainer = function () {
-  Popup.prototype.createContainer.call(this);
-  this.container = toastContainer;
+  return this.createToast(this.header, this.type);
 };
 
 Toast.prototype.createToast = function (header, type) {

@@ -3,16 +3,15 @@ import { Popup } from "./popup.js";
 var modalContainer = document.getElementById("modal");
 
 export function Modal() {
-  Popup.call.this;
-  this.isOverlay = null;
+  Popup.call(this);
 }
 
 Modal.prototype = Object.create(Popup.prototype);
 Modal.prototype.constructor = Modal;
 
 Modal.prototype.show = function (header, content) {
+  this.container = modalContainer;
   Popup.prototype.show.call(this, header, content);
-
   var overlay = document.createElement("div");
   overlay.id = "overlay";
   this.container.before(overlay);
@@ -20,16 +19,14 @@ Modal.prototype.show = function (header, content) {
     this.hide.call(this);
     overlay.remove();
   });
-
-  this.createModal(this.header, this.content);
 };
 
 Modal.prototype.createContainer = function () {
-  this.container = modalContainer;
-  this.isOverlay = true;
+  return this.createModal(this.header, this.content);
 };
 
 Modal.prototype.createModal = function (header, content) {
+  this.container = modalContainer;
   var headerWrapper = document.createElement("h2");
   headerWrapper.className = "modal_header";
   headerWrapper.innerHTML = header;
@@ -43,15 +40,16 @@ Modal.prototype.createModal = function (header, content) {
   closeButton.id = "close_modal";
   closeButton.innerText = "close";
   this.container.append(closeButton);
-  closeButton.addEventListener("click", function () {
-    Modal.prototype.hide();
+  closeButton.addEventListener("click", () => {
+    this.hide.call(this);
     overlay.remove();
   });
 };
+
 Modal.prototype.hide = function () {
-  Popup.prototype.hide.call(this);
   this.destroyModal();
 };
+
 Modal.prototype.destroyModal = function () {
   this.container.className = "";
   this.container.innerHTML = "";
