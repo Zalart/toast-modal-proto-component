@@ -24,7 +24,7 @@ Modal.prototype.show = function (header, content) {
   this.createModal(this.header, this.content);
 };
 
-Modal.prototype.getContainer = function () {
+Modal.prototype.createContainer = function () {
   this.container = modalContainer;
   this.isOverlay = true;
 };

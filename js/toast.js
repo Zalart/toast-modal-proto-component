@@ -23,8 +23,8 @@ Toast.prototype.show = function (header) {
   }
 };
 
-Toast.prototype.getContainer = function () {
-  Popup.prototype.getContainer.call(this);
+Toast.prototype.createContainer = function () {
+  Popup.prototype.createContainer.call(this);
   this.container = toastContainer;
 };
 

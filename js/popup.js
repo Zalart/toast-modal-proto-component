@@ -7,11 +7,11 @@ export function Popup() {
 Popup.prototype.show = function (header, content) {
   this.header = header;
   this.content = content;
-  this.getContainer();
+  this.createContainer();
 };
 Popup.prototype.hide = function () {
-  this.getContainer();
+  this.createContainer();
 };
-Popup.prototype.getContainer = function () {
+Popup.prototype.createContainer = function () {
   return null;
 };
