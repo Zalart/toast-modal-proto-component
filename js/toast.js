@@ -15,7 +15,7 @@ export class Toast extends Popup {
     }
     this.container = toastsContainer;
 
-    super.show.call(this, header);
+    super.show(header);
     const idToDelete = document.getElementById(
       "toast_" + this.type + "_" + this.toastId
     );

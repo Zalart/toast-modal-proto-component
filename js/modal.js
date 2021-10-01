@@ -7,7 +7,7 @@ export class Modal extends Popup {
   }
 
   show(header, content) {
-    super.show.call(this, header, content);
+    super.show(header, content);
   }
 
   createContainer() {
