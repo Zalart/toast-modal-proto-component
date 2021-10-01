@@ -6,10 +6,6 @@ export class Modal extends Popup {
     this.container = document.body;
   }
 
-  show(header, content) {
-    super.show(header, content);
-  }
-
   createContainer() {
     const overlay = document.createElement("div");
     overlay.id = "overlay";
