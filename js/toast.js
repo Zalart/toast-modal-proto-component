@@ -1,17 +1,24 @@
 import { Popup } from "./popup.js";
-
-var toastContainer = document.getElementById("toast");
-
+var toastsContainer = document.getElementById("toasts");
 export function Toast() {
   Popup.call(this);
   this.toastId = 0;
+  this.container = document.body;
 }
 
 Toast.prototype = Object.create(Popup.prototype);
 Toast.prototype.constructor = Toast;
 
 Toast.prototype.show = function (header) {
-  this.container = toastContainer;
+  console.log(toastsContainer);
+  if (!toastsContainer) {
+    toastsContainer = document.createElement("div");
+    toastsContainer.id = "toasts";
+    this.container.append(toastsContainer);
+    console.log(this.container);
+  }
+  this.container = toastsContainer;
+
   Popup.prototype.show.call(this, header);
   var idToDelete = document.getElementById(
     "toast_" + this.type + "_" + this.toastId
@@ -22,7 +29,6 @@ Toast.prototype.show = function (header) {
     }, 5000);
   }
 };
-
 Toast.prototype.createContainer = function () {
   return this.createToast(this.header, this.type);
 };
@@ -30,11 +36,10 @@ Toast.prototype.createContainer = function () {
 Toast.prototype.createToast = function (header, type) {
   this.header = header;
   var id = ++this.toastId;
-  var newNode = document.createElement("div");
-  newNode.id = "toast_" + type + "_" + id;
-  newNode.classList.add("toast", type);
-  this.container.append(newNode);
-  newNode.append(this.header);
+  var newToast = document.createElement("div");
+  newToast.id = "toast_" + type + "_" + id;
+  newToast.classList.add("toast", type);
+  newToast.append(this.header);
   var toastButton = document.createElement("span");
   toastButton.className = "delete_toast";
   toastButton.id = id;
@@ -46,12 +51,16 @@ Toast.prototype.createToast = function (header, type) {
       true
     );
   });
-  newNode.append(toastButton);
+  newToast.append(toastButton);
+  return newToast;
 };
 
 Toast.prototype.removeToast = function (idToDelete, timeout) {
   idToDelete.classList.add("hide");
   setTimeout(function () {
     idToDelete.remove();
+    if (!toastsContainer.hasChildNodes()) {
+      toastsContainer.remove();
+    }
   }, timeout);
 };

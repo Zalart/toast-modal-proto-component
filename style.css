@@ -14,7 +14,7 @@ textarea {
   padding: 0.5rem;
   font-size: 1.2rem;
 }
-.container {
+#container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -106,7 +106,7 @@ button:active {
   box-shadow: none;
 }
 
-#toast {
+#toasts {
   position: absolute;
   top: 15px;
   right: 15px;
