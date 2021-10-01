@@ -4,27 +4,25 @@ import { ToastNotification } from "./toastNotification.js";
 import { ToastSuccess } from "./toastSuccess.js";
 import { ToastMessage } from "./toastMessage.js";
 (function () {
-  var addToast = document.getElementById("add_toast");
-  var addModal = document.getElementById("open_modal");
-  var inputHeader;
-  var inputContent;
-  var toast = [
+  const addToast = document.getElementById("add_toast");
+  const addModal = document.getElementById("open_modal");
+  const toast = [
     new ToastError(),
     new ToastNotification(),
     new ToastSuccess(),
     new ToastMessage(),
   ];
-  var modal = new Modal();
+  const modal = new Modal();
 
   addToast.addEventListener("click", function () {
-    inputHeader = document.getElementById("input_header").value;
-    var randomToast = Math.floor(Math.random() * 4);
+    const inputHeader = document.getElementById("input_header").value;
+    const randomToast = Math.floor(Math.random() * 4);
     toast[randomToast].show(inputHeader);
   });
 
   addModal.addEventListener("click", function () {
-    inputHeader = document.getElementById("input_header").value;
-    inputContent = document.getElementById("input_content").value;
+    const inputHeader = document.getElementById("input_header").value;
+    const inputContent = document.getElementById("input_content").value;
 
     modal.show(inputHeader, inputContent);
   });

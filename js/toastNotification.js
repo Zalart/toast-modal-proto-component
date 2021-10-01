@@ -1,16 +1,16 @@
 import { Toast } from "./toast.js";
 
-export function ToastNotification() {
-  Toast.call(this);
-  this.type = "notification";
+export class ToastNotification extends Toast {
+  constructor() {
+    super();
+    this.type = "notification";
+  }
+
+  show(message) {
+    super.show.call(this, message);
+  }
+
+  getType() {
+    return this.type;
+  }
 }
-ToastNotification.prototype = Object.create(Toast.prototype);
-ToastNotification.prototype.constructor = ToastNotification;
-
-ToastNotification.prototype.show = function (message) {
-  Toast.prototype.show.call(this, message);
-};
-
-ToastNotification.prototype.getType = function () {
-  return this.type;
-};

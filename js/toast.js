@@ -1,57 +1,55 @@
 import { Popup } from "./popup.js";
 
-var toastContainer = document.getElementById("toast");
+const toastContainer = document.getElementById("toast");
 
-export function Toast() {
-  Popup.call(this);
-  this.toastId = 0;
-}
-
-Toast.prototype = Object.create(Popup.prototype);
-Toast.prototype.constructor = Toast;
-
-Toast.prototype.show = function (header) {
-  this.container = toastContainer;
-  Popup.prototype.show.call(this, header);
-  var idToDelete = document.getElementById(
-    "toast_" + this.type + "_" + this.toastId
-  );
-  if (idToDelete) {
-    setTimeout(function () {
-      Toast.prototype.removeToast(idToDelete, 1000);
-    }, 5000);
+export class Toast extends Popup {
+  constructor() {
+    super();
+    this.toastId = 0;
   }
-};
 
-Toast.prototype.createContainer = function () {
-  return this.createToast(this.header, this.type);
-};
-
-Toast.prototype.createToast = function (header, type) {
-  this.header = header;
-  var id = ++this.toastId;
-  var newNode = document.createElement("div");
-  newNode.id = "toast_" + type + "_" + id;
-  newNode.classList.add("toast", type);
-  this.container.append(newNode);
-  newNode.append(this.header);
-  var toastButton = document.createElement("span");
-  toastButton.className = "delete_toast";
-  toastButton.id = id;
-  toastButton.addEventListener("click", function (e) {
-    Toast.prototype.removeToast.call(
-      this,
-      document.getElementById("toast_" + type + "_" + id),
-      1000,
-      true
+  show(header) {
+    this.container = toastContainer;
+    super.show(header);
+    const idToDelete = document.getElementById(
+      "toast_" + this.type + "_" + this.toastId
     );
-  });
-  newNode.append(toastButton);
-};
+    if (idToDelete) {
+      setTimeout(() => {
+        this.removeToast(idToDelete, 1000);
+      }, 5000);
+    }
+  }
 
-Toast.prototype.removeToast = function (idToDelete, timeout) {
-  idToDelete.classList.add("hide");
-  setTimeout(function () {
-    idToDelete.remove();
-  }, timeout);
-};
+  createContainer() {
+    return this.createToast(this.header, this.type);
+  }
+
+  createToast(header, type) {
+    this.header = header;
+    const id = ++this.toastId;
+    const newNode = document.createElement("div");
+    newNode.id = "toast_" + type + "_" + id;
+    newNode.classList.add("toast", type);
+    this.container.append(newNode);
+    newNode.append(this.header);
+    const toastButton = document.createElement("span");
+    toastButton.className = "delete_toast";
+    toastButton.id = id;
+    toastButton.addEventListener("click", (e) => {
+      this.removeToast(
+        document.getElementById("toast_" + type + "_" + id),
+        1000,
+        true
+      );
+    });
+    newNode.append(toastButton);
+  }
+
+  removeToast(idToDelete, timeout) {
+    idToDelete.classList.add("hide");
+    setTimeout(function () {
+      idToDelete.remove();
+    }, timeout);
+  }
+}
