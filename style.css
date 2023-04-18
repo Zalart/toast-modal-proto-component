@@ -1,0 +1,228 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+}
+
+input,
+textarea {
+  width: 100%;
+  line-height: 2rem;
+  margin: 1rem;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0 1rem;
+}
+.playground {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 50vw;
+}
+#overlay {
+  position: fixed;
+  z-index: 9990;
+  top: 0;
+  left: 0;
+  opacity: 0.5;
+  width: 100vw;
+  height: 100vh;
+  transition: 500ms opacity ease;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+#modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  width: 50%;
+  padding: 2rem 0;
+  z-index: -1;
+  transition: 500ms opacity ease;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1,
+h2.modal_header {
+  text-align: center;
+}
+.modal_content {
+  width: 90%;
+  margin: 0;
+  margin: 1rem 0;
+  padding: 1.2rem 0;
+  padding: 0;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+#modal.open {
+  opacity: 1;
+  z-index: 9999;
+  background-color: whitesmoke;
+}
+.buttons_container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+button {
+  font-size: 17px;
+  display: block;
+  margin: 0.5rem auto;
+  padding: 10px 30px;
+  cursor: pointer;
+  color: whitesmoke;
+  border: 0;
+  border-radius: 3px;
+  outline: none;
+  background: #2ecc71;
+  box-shadow: 0 5px 1px #27ae60;
+  opacity: 0.8;
+  z-index: 100;
+  width: auto;
+  position: relative;
+}
+button:hover {
+  opacity: 1;
+}
+button:active {
+  box-shadow: none;
+}
+
+#toasts {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 330px;
+}
+
+.toast {
+  border-radius: 3px;
+  margin: 0.5rem;
+  padding: 0.4rem 2rem 0.4rem 2.9rem;
+  background-color: #fff;
+  bottom: 20px;
+  opacity: 0;
+  animation: show 1s 1;
+  animation-fill-mode: forwards;
+}
+.hide {
+  opacity: 1;
+  animation: hide 1s 1;
+  animation-fill-mode: forwards;
+}
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  1% {
+    opacity: 0.99;
+    transform: translateY(-1px);
+  }
+  99% {
+    opacity: 0.01;
+    transform: translateY(-50px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.toast::before {
+  content: "";
+  position: absolute;
+  background-size: 70px 45px;
+  width: 70px;
+  height: 45px;
+  left: 6px;
+  opacity: 0.7;
+}
+.hide::before {
+  left: -6px;
+}
+.hide .delete_toast {
+  right: 0;
+}
+.error {
+  background-color: salmon;
+  border: tomato 2px solid;
+}
+.error::before {
+  background-image: url(i/fire.svg);
+}
+.notification {
+  background-color: khaki;
+  border: sandybrown 2px solid;
+}
+.notification::before {
+  background-image: url(i/exclamation-mark.svg);
+}
+.success {
+  background-color: #2ecc71;
+  border: #27ae60 2px solid;
+}
+.success::before {
+  background-image: url(i/approve.svg);
+}
+.message {
+  background-color: deepskyblue;
+  border: teal 2px solid;
+}
+.message::before {
+  background-image: url(i/loading.svg);
+}
+.delete_toast {
+  content: "";
+  position: absolute;
+  background-image: url(i/close.svg);
+  background-size: 30px 30px;
+  width: 30px;
+  height: 30px;
+  right: 12px;
+  opacity: 0.7;
+  margin-top: -30px;
+}
+.delete_toast:hover {
+  opacity: 1;
+  cursor: pointer;
+  transform: rotate(10deg);
+}
+
+@media only screen and (max-width: 460px) {
+  #modal {
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
+  button {
+    font-size: 14px;
+    padding: 6px 18px;
+  }
+}
